@@ -3,7 +3,7 @@ import React from 'react'
 
 const ProfileSkeleton = () => {
     return (
-        <Card className="min-w-[30%] w-[30%] space-y-5 p-4 " radius="lg">
+        <Card className="w-[100%] md:w-[30%] space-y-5 p-4 " radius="lg">
             <Skeleton className="rounded-full w-[150px] h-[150px] self-center">
                 <div className="h-24 w-24 rounded-full bg-default-300"></div>
             </Skeleton>

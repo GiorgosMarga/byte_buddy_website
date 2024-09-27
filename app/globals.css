@@ -52,4 +52,8 @@ body {
   .button-animation {
     @apply hover:scale-105 ease-in duration-150 cursor-pointer;
   }
+
+  .dracula {
+    @apply bg-[#282a36]
+  }
 }

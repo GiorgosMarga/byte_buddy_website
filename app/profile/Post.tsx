@@ -1,7 +1,7 @@
 import { CodeBlock, dracula } from 'react-code-blocks';
 import React from 'react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { TableColumn, Tooltip } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import { makeRequest } from '../request';
 import { StatusCodes } from 'http-status-codes';
 
@@ -23,11 +23,12 @@ const Post = ({ post, refetchPosts }: Props) => {
     }
 
     return (
-        <div className='flex flex-col group bg-gray-800 rounded-lg shadow-lg cursor-pointer p-5 hover:scale-105 duration-150 ease-soft-spring transition-all justify-between'>
+        <div className='flex flex-col group dracula rounded-lg shadow-lg cursor-pointer p-5 hover:scale-105 duration-150 ease-soft-spring transition-all justify-between'>
             <CodeBlock
                 text={post.content}
-                language={"javascript"}
+                language={post.language}
                 theme={dracula}
+                wrapLongLines
             />
             <div className='hidden space-x-5 mx-auto group-hover:flex'>
                 <Tooltip content="Edit">

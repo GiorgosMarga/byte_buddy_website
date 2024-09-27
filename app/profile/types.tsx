@@ -8,10 +8,11 @@ type User = {
     username: string
     bio: string
     radius: number
-    firstName: string
-    lastName: string
+    firstname: string
+    lastname: string
     geolocation: UserGeolocation
     user_id: number
+    avatar: string
 }
 
 type Post = {

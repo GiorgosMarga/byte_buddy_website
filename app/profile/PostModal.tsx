@@ -91,7 +91,7 @@ const PostModal = ({ isOpen, onOpen, onOpenChange, refetchPosts }: Props) => {
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col gap-1 text-danger-300">Create New Code Snippet</ModalHeader>
-                            <ModalBody className="flex flex-col overflow-y-scroll">
+                            <ModalBody className="flex flex-col overflow-y-scroll scrollbar-hide">
                                 <Textarea
                                     errorMessage={postErrors.content}
                                     isInvalid={postErrors.content.length > 0}

@@ -11,14 +11,14 @@ const Posts = ({ user_id }: { user_id: number | undefined }) => {
         queryFn: async () => {
             const res = await makeRequest(`/posts/${user_id}`, "GET", null, true)
             if (res.statusCode !== StatusCodes.OK) {
-                console.log(res.statusCode)
+                console.error(res.statusCode, res.body)
             }
             return res.body.posts as Post[]
         }
     })
 
     return (
-        <div className='grid gap-4 grid-cols-3 grid-rows-* p-10 w-full'>
+        <div className='grid gap-4 grid-cols-1 md:grid-cols-* grid-rows-* p-10 w-full'>
             {posts?.map((post) => <Post key={post.id} post={post} refetchPosts={() => refetch()} />)}
             <NewPost refetchPosts={() => refetch()} />
         </div>
