@@ -19,7 +19,7 @@ const Posts = ({ user_id }: { user_id: number | undefined }) => {
 
     return (
         <div className='grid gap-4 grid-cols-3 grid-rows-* p-10 w-full'>
-            {posts?.map((post) => <Post post={post} refetchPosts={() => refetch()} />)}
+            {posts?.map((post) => <Post key={post.id} post={post} refetchPosts={() => refetch()} />)}
             <NewPost refetchPosts={() => refetch()} />
         </div>
     )

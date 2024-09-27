@@ -1,7 +1,9 @@
 'use client'
-import { Button, Spinner } from '@nextui-org/react'
+import { Spinner } from '@nextui-org/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { makeRequest } from '../request'
+import { StatusCodes } from 'http-status-codes'
 
 export default function ActivatePage() {
     const [isLoading, setIsLoading] = useState(false)
@@ -12,34 +14,23 @@ export default function ActivatePage() {
             const token = searchParams.get('token')
             setIsLoading(true)
             setError("")
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URI}/users/activate`, {
-                method: "PUT",
-                body: JSON.stringify({
-                    token
-                }),
-                headers: {
-                    "content-type": "application/json",
-                },
-                mode: "cors"
-            })
-            if (res.status === 200) {
+            const res = await makeRequest(`/users/activate?token=${token}`, "PUT", null, false)
+            if (res.statusCode === StatusCodes.OK) {
                 setError("Your account has been activated. Soon you will be redirected....")
-            }else if (res.status === 422) {
-                const body = await res.json()              
-                setError(body?.errors?.token ?? "there was an error. Please try later.")
+            } else if (res.statusCode === StatusCodes.UNPROCESSABLE_ENTITY) {
+                setError(res.body?.token ?? "There was an error. Please try agin later.")
             }
-            console.log(res.status )
             setIsLoading(false)
         }
         activateAccount()
-    }, [])
-        
+    }, [searchParams])
 
 
-  return (
-    <div className='w-screen h-screen flex justify-center items-center flex-col'>
-        {isLoading ? <Spinner color='danger'/> : null}
-        {error.length === 0 ? <p className='text-lg mt-5 text-danger'>Activating account...</p> : <p className='text-sm text-danger font-semibold'>{error}</p>}
-    </div>
-  )
+
+    return (
+        <div className='w-screen h-screen flex justify-center items-center flex-col'>
+            {isLoading ? <Spinner color='danger' /> : null}
+            {error.length === 0 ? <p className='text-lg mt-5 text-danger'>Activating account...</p> : <p className='text-sm text-danger font-semibold'>{error}</p>}
+        </div>
+    )
 }

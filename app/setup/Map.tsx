@@ -44,7 +44,6 @@ const Map = ({ radius, onChangePosition }: MapProps) => {
         lat: pos.coords.latitude,
         lng: pos.coords.longitude
       })
-      console.log(position)
     })
   }, []);
 

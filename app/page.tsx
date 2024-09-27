@@ -74,7 +74,7 @@ export default function Home() {
     if (posts?.length === 3) {
       refetch()
     }
-  }, [posts])
+  }, [posts, refetch])
 
   const changeAction = () => {
     setAction("waiting")
@@ -90,7 +90,6 @@ export default function Home() {
     }
 
     const res = await makeRequest("/matches", "POST", JSON.stringify(req_body), true)
-    console.log(res.body)
   }
 
 

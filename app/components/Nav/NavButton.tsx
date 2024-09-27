@@ -33,7 +33,7 @@ const NavButton = ({ useCycle, open }: Props) => {
             }
         }
         animation()
-    }, [isInView, animate, open])
+    }, [isInView, animate, open, isInitialAnimation])
 
     return (
         <div ref={scope}>
