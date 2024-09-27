@@ -76,7 +76,7 @@ const Login = ({ changeAuthState }: LoginProps) => {
                 {!isLoading ? <Button variant='shadow' className='bg-danger-300' onClick={onClickHandler}>Log In</Button> : <Spinner color='danger' />}
                 <div>
                     <Divider className="my-4 mt-5" />
-                    <p className='text-sm'>You don't have an account? <Link onClick={changeAuthState} className='cursor-pointer text-sm font-bold text-danger-300'>Sign up</Link></p>
+                    <p className='text-sm'>{`You don't have an account?`} <Link onClick={changeAuthState} className='cursor-pointer text-sm font-bold text-danger-300'>Sign up</Link></p>
                 </div>
             </form>
         </div>
