@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-./seed_db
-./seed_db_go
+/seed_db
+/seed_db_go
