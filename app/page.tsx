@@ -42,7 +42,7 @@ export default function Home() {
       }
       return res.body.user
     },
-    onSuccess: () => {
+    onSuccess: (user) => {
       setUser(user)
     }
   })

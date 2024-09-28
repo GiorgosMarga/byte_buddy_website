@@ -14,7 +14,7 @@ type Action = {
 
 const useUserStore = create<State & Action>((set) => ({
   user: null,
-  setUser: (newUser) => set(() => ({user:newUser})),
+  setUser: (newUser) => set({user:newUser}),
   deleteUser: () => set({user:null})
 }))
 

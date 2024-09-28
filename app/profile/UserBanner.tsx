@@ -5,6 +5,8 @@ import { navigate } from '../actions'
 import MyAvatar from '../components/Avatar'
 import { makeRequest } from '../request'
 import { StatusCodes } from 'http-status-codes'
+import { useQuery } from 'react-query'
+import ProfileSkeleton from './ProfileSkeleton'
 
 type Props = {
     user: User
@@ -14,11 +16,25 @@ type Form = {
     country?: string
     city?: string
 }
-const UserBanner = ({ user }: Props) => {
+const UserBanner = () => {
     const [isEdit, setIsEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [form, setForm] = useState<Form>({ bio: user?.bio, country: user?.geolocation.country, city: user?.geolocation.city })
+    const [form, setForm] = useState<Form>({})
     const [formErrors, setFormErrors] = useState({ bio: "", country: "", city: "" })
+
+    const { data: user, refetch } = useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            const res = await makeRequest("/user_info", "GET", null, true)
+            return res.body.user_info as User
+        },
+        onSuccess: (user) => {
+            setForm({ bio: user.bio, country: user.geolocation.country, city: user.geolocation.city })
+        }
+    })
+
+
+
 
     const setErrors = (key: string, value: string) => {
         setFormErrors((prev) => ({
@@ -28,7 +44,7 @@ const UserBanner = ({ user }: Props) => {
     }
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
-        if (key === "bio" && e.target.value.length > 50) {
+        if (key === "bio" && e.target.value.length > 5000) {
             return
         }
         setForm((prev) => ({
@@ -47,9 +63,15 @@ const UserBanner = ({ user }: Props) => {
                 setErrors(key, res.body["errors"][key])
             }
         } else if (res.statusCode === StatusCodes.OK) {
+            refetch()
             setIsEdit(false)
+
         }
         setIsLoading(false)
+    }
+
+    if (!user) {
+        return <ProfileSkeleton />
     }
 
     return (
